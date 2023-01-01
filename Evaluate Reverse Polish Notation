@@ -1,0 +1,28 @@
+class Solution {
+public:
+    int evalRPN(vector<string>& tokens) {
+		//Create a stack to store the operands  
+        stack<int> st;
+        for(auto token:tokens){
+			//If the string is an operator
+            if(token=="+"||token=="*"||token=="/"||token=="-"){
+                int b = st.top();
+                st.pop();
+                int a = st.top();
+                st.pop();
+                if(token=="+")  st.push(a+b);
+                if(token=="*")  st.push(a*b);
+                if(token=="-")  st.push(a-b);
+                if(token=="/")  st.push(a/b);
+            }
+			//If the string is an element
+            else{
+                stringstream ss(token);
+                int data;
+                ss>>data;
+                st.push(data);
+            }
+        }
+        return st.top();
+    }
+};
